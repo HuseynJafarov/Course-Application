@@ -24,22 +24,38 @@ namespace Service.Services
             return group;
         }
 
-        public void Delete(int Id)
+        public void Delete(int id)
         {
             throw new NotImplementedException();
         }
 
         public List<Group> GetAll()
         {
-            throw new NotImplementedException();
+            return _groupRepository.GetAll();
         }
 
-        public Group GetById(int Id)
+        public List<Group> GetAllByRoom(string room)
         {
-            throw new NotImplementedException();
+
+
+            return _groupRepository.GetAll(m => m.Room.Trim().ToLower().StartsWith(room.Trim().ToLower()));
+
+            //return _groupRepository.GetAll(m => m.Name.StartsWith(room));
         }
 
-        public Group Update(int Id, Group group)
+        public List<Group> GetAllByTeacherName(string name)
+        {
+            return _groupRepository.GetAll(m => m.Teacher.Trim().ToLower().StartsWith(name.Trim().ToLower()));
+        }
+
+        public Group GetById(int id)
+        {
+            var group = _groupRepository.Get(m => m.Id == id);
+            if (group is null) return null;
+            return group;
+        }
+
+        public Group Update(int id, Group group)
         {
             throw new NotImplementedException();
         }

@@ -13,5 +13,6 @@ namespace Repository.Repositories.Interface
 
         T Get(Predicate<T> predicate);
         List<T> GetAll(Predicate<T> predicate);
+
     }
 }

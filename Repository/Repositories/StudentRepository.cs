@@ -40,6 +40,16 @@ namespace Repository.Repositories
             throw new NotImplementedException();
         }
 
+        public List<Student> GetAllByRoom(Predicate<Student> predicate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Student> GetAllByTeacherName(Predicate<Student> predicate)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(Student data)
         {
             throw new NotImplementedException();

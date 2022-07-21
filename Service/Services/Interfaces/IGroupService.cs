@@ -8,10 +8,13 @@ namespace Service.Services.Interfaces
     public interface IGroupService
     {
         Group Create(Group group);
-        Group Update(int Id, Group group);
-        void Delete(int Id);
-        Group GetById(int Id);
+        Group Update(int id, Group group);
+        void Delete(int id);
+        Group GetById(int id);
+        List<Group> GetAllByTeacherName(string name);
+        List<Group> GetAllByRoom(string room);
         List<Group> GetAll();
+        
 
     }
 }

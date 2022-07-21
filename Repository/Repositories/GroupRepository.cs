@@ -32,12 +32,12 @@ namespace Repository.Repositories
 
         public Group Get(Predicate<Group> predicate)
         {
-            throw new NotImplementedException();
+            return predicate != null ? AppDbContext<Group>.datas.Find(predicate) : null;
         }
 
-        public List<Group> GetAll(Predicate<Group> predicate)
+        public List<Group> GetAll(Predicate<Group> predicate = null)
         {
-            throw new NotImplementedException();
+            return predicate != null ? AppDbContext<Group>.datas.FindAll(predicate) : AppDbContext<Group>.datas;
         }
 
         public void Update(Group data)
