@@ -26,7 +26,8 @@ namespace Service.Services
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            Group group = GetById(id);
+            _groupRepository.Delete(group);
         }
 
         public List<Group> GetAll()
@@ -40,7 +41,7 @@ namespace Service.Services
 
             return _groupRepository.GetAll(m => m.Room.Trim().ToLower().StartsWith(room.Trim().ToLower()));
 
-            //return _groupRepository.GetAll(m => m.Name.StartsWith(room));
+            //return _groupRepository.GetAll(m => m.Name.StartsWith(room)); //1-ci video 30-cu dq //2-ci video 18- ci dq
         }
 
         public List<Group> GetAllByTeacherName(string name)
@@ -57,7 +58,11 @@ namespace Service.Services
 
         public Group Update(int id, Group group)
         {
-            throw new NotImplementedException();
+            Group dbGroup = GetById(id);
+            if (dbGroup is null) return null;
+            group.Id = dbGroup.Id;
+            _groupRepository.Update(group);
+            return group;
         }
     }
 }
