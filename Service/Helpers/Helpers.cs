@@ -25,7 +25,8 @@ namespace Service.Helpers
         Deletegroup =4,
         Getallgroupbyteacher = 5,
         Getallgroupbyroom =6,
-        Getallgroup = 7
+        Getallgroup = 7,
+        CreateStudent = 8
 
 
     }

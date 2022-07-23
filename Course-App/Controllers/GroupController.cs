@@ -31,7 +31,6 @@ namespace Course_App.Controllers
                 Group group = new Group()
                 {
                     Name = groupName,
-
                     Room = groupRoom,
                     Teacher = groupTeacher
 
@@ -179,8 +178,20 @@ namespace Course_App.Controllers
                 int teacherName;
                 bool isTeacherName = int.TryParse(groupNewTeacher, out teacherName);
 
-                if (!isTeacherName && !string.IsNullOrEmpty(groupNewTeacher))
+                if (!isTeacherName && !string.IsNullOrEmpty(groupNewTeacher) || groupNewTeacher == "")
                 {
+                    bool isTeacher = string.IsNullOrEmpty(groupNewTeacher);
+
+                    int? tname = null;
+                    if (isTeacherName)
+                    {                                               
+                        tname = null;                             //if yada rejex stringdi deye
+                    }
+                    else
+                    {
+                        tname = teacherName;
+                    }
+
                     Group group = new Group()
                     {
                         Name = groupNewName,
@@ -202,7 +213,7 @@ namespace Course_App.Controllers
                 else
                 {
                     Helpers.WriteConsole(ConsoleColor.DarkRed, "Add correct Teacher Name:");
-                    goto GroupId;
+                    goto TeacherName;
                 }
 
             }

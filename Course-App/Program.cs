@@ -11,8 +11,9 @@ namespace Course_App
     {
         static void Main(string[] args)
         {
-            GroupService groupService = new GroupService();
+           
             GroupController groupController = new GroupController();
+            StudentController studentController = new StudentController();
 
             Helpers.WriteConsole(ConsoleColor.Red, "Select one Option :");
 
@@ -50,10 +51,8 @@ namespace Course_App
                         case (int)Menues.Getallgroup:
                             groupController.GetAllGroup();
                             break;
-                        case 8:
-
-                            Console.WriteLine(selecTrueOption);
-
+                        case (int)Menues.CreateStudent:
+                            studentController.Create();
                             break;
                         case 9:
 
@@ -105,8 +104,12 @@ namespace Course_App
         }
         private static void GetMenues()
         {
-            Helpers.WriteConsole(ConsoleColor.Green, "1- Create Group, 2- Get Group by id, 3- Update group, + " +
-                "4- Delete group,5 - Get all group by teacher, 6 - Get all group  by room, 7 - Get all group,");
+            Helpers.WriteConsole(ConsoleColor.Green, "1- Create Group, 2- Get Group by id, 3- Update group,  " +
+                "4- Delete group,5 - Get all group by teacher, 6 - Get all group  by room, 7 - Get all group, " +
+                " 8 - Create Student  9 - Update Student   , 10- Get student  by id, 11 - Delete student, " +
+                "   12 - Get students   by age, 13 - Get all students  by group id , 14- Search method for groups by name, " +
+                "15 - Search method for students by name or surname.");
+
         }
     }
 }

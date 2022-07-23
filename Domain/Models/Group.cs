@@ -10,10 +10,5 @@ namespace Domain.Models
         public string Name { get; set; }
         public string Teacher { get; set; }
         public string Room { get; set; }
-
-        public static implicit operator Group(Student v)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

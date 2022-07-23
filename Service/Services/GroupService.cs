@@ -60,7 +60,7 @@ namespace Service.Services
         {
             Group dbGroup = GetById(id);
             if (dbGroup is null) return null;
-            group.Id = dbGroup.Id;
+            group.Id = dbGroup.Id;                         //4-cu video 10-cu dq
             _groupRepository.Update(group);
             return group;
         }

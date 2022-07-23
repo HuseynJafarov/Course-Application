@@ -32,7 +32,7 @@ namespace Repository.Repositories
 
         public Group Get(Predicate<Group> predicate)
         {
-            return predicate != null ? AppDbContext<Group>.datas.Find(predicate) : null;
+            return predicate != null ? AppDbContext<Group>.datas.Find(predicate) : AppDbContext<Group>.datas[0];
         }
 
         public List<Group> GetAll(Predicate<Group> predicate = null)
