@@ -14,7 +14,9 @@ namespace Service.Services.Interfaces
         List<Group> GetAllByTeacherName(string name);
         List<Group> GetAllByRoom(string room);
         List<Group> GetAll();
-        
+        List<Group> SearchGroupName(string search);
+
+
 
     }
 }

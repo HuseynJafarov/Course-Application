@@ -43,7 +43,7 @@ namespace Course_App
                              groupController.Delete();
                             break;
                         case (int)Menues.Getallgroupbyteacher:
-                            groupController.GetGroupById();
+                            groupController.GetAllGroupByTeacher();
                             break;
                         case (int)Menues.Getallgroupbyroom:
                             groupController.GetAllGroupByRoom();
@@ -54,40 +54,29 @@ namespace Course_App
                         case (int)Menues.CreateStudent:
                             studentController.Create();
                             break;
-                        case 9:
-
-                            Console.WriteLine(selecTrueOption);
-
+                        case (int)Menues.UpdateStudent:
+                            studentController.Update();
                             break;
-                        case 10:
-
-                            Console.WriteLine(selecTrueOption);
-
+                        case (int)Menues.Getstudentbyid:
+                            studentController.GetStudentById();
                             break;
-                        case 11:
-
-                            Console.WriteLine(selecTrueOption);
-
+                        case (int)Menues.Deletestudent:
+                            studentController.Delete();
                             break;
-                        case 12:
-
-                            Console.WriteLine(selecTrueOption);
-
+                        case (int)Menues.GetStudentsbyAge:
+                            studentController.GetStudentByAge();
                             break;
-                        case 13:
-
-                            Console.WriteLine(selecTrueOption);
-
+                        case (int)Menues.GetallStudentsbyGroupid:
+                            studentController.GetAllStudentByGroupId();
                             break;
-                        case 14:
-
-                            Console.WriteLine(selecTrueOption);
-
+                        case (int)Menues.SearchMethodforGroupsbyName:
+                            groupController.SearchGroupName();
                             break;
-                        case 15:
-
-                            Console.WriteLine(selecTrueOption);
-
+                        case (int)Menues.SearchMethodforStudentsbyNameorSurname:
+                            studentController.SearchStudentNameSurname();
+                            break;
+                        case (int)Menues.GetAllStudent:
+                            studentController.GetAllStudent();
                             break;
                         default:
                             Helpers.WriteConsole(ConsoleColor.Red, "Select correct Option numbers :");
@@ -108,7 +97,7 @@ namespace Course_App
                 "4- Delete group,5 - Get all group by teacher, 6 - Get all group  by room, 7 - Get all group, " +
                 " 8 - Create Student  9 - Update Student   , 10- Get student  by id, 11 - Delete student, " +
                 "   12 - Get students   by age, 13 - Get all students  by group id , 14- Search method for groups by name, " +
-                "15 - Search method for students by name or surname.");
+                "15 - Search method for students by name or surname, 16 - Get All Student");
 
         }
     }

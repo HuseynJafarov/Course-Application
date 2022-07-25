@@ -23,18 +23,19 @@ namespace Service.Services
         {
             var group = _groupRepository.Get(m => m.Id == groupId);
             if (student is null) return null;
-            student.Id = _count;
             student.Group = group;
+            student.Id = _count;
             _studentRepository.Create(student);
-            
             _count++;
             return student;
         }
 
-        public void Delete(int id)
+        public Student Delete(int id)
         {
             Student student = GetById(id);
+            if (student == null) return null;
             _studentRepository.Delete(student);
+            return student;
         }
 
         public Student GetById(int id)
@@ -57,6 +58,27 @@ namespace Service.Services
             _studentRepository.Update(student);
             return student;
         }
+
+        public List<Student> GetByAge(int age)
+        {
+            var student = _studentRepository.GetAll(m => m.Age == age);
+            if (student is null) return null;
+            return student;
+        }
+
+        public List<Student> GetAllStudentByGroupId(int id)
+        {
+            var datas = _studentRepository.GetAll(m => m.Group.Id == id);
+            return datas;
+        }
+
+
+        public List<Student> SearchStudentNameSurname(string search)
+        {
+            return _studentRepository.GetAll(m => m.Name.StartsWith(search)  || m.Surname.StartsWith(search));
+        }
+
+
     }
 
 }

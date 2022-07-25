@@ -26,7 +26,19 @@ namespace Service.Helpers
         Getallgroupbyteacher = 5,
         Getallgroupbyroom =6,
         Getallgroup = 7,
-        CreateStudent = 8
+        CreateStudent = 8,
+        UpdateStudent = 9,
+        Getstudentbyid = 10,
+        Deletestudent = 11,
+        GetStudentsbyAge = 12,
+        GetallStudentsbyGroupid =13,
+        SearchMethodforGroupsbyName =14,
+        SearchMethodforStudentsbyNameorSurname = 15,
+        GetAllStudent = 16
+
+
+
+
 
 
     }

@@ -4,6 +4,8 @@ using Service.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
+using Group = Domain.Models.Group;
 
 namespace Course_App.Controllers
 {
@@ -13,43 +15,56 @@ namespace Course_App.Controllers
 
         public void Create()
         {
+            string strRegex = @"^[a-zA-Z]+$";
+            string strRegexFor = @"^[a-zA-Z0-9]+$";
+            Regex regex = new Regex(strRegex);
+            Regex regexFor = new Regex(strRegexFor);
+          GroupName:
             Helpers.WriteConsole(ConsoleColor.Blue, "Add group Name :");
             string groupName = Console.ReadLine();
+            if (!regexFor.IsMatch(groupName))
+            {
+                Helpers.WriteConsole(ConsoleColor.Red, "Add correct group Room :");
+                goto GroupName;
+            }
+               
+          GroupRoom: 
             Helpers.WriteConsole(ConsoleColor.Blue, "Add group Room :");
             string groupRoom = Console.ReadLine();
+             if (!regexFor.IsMatch(groupRoom))
+            {
+                Helpers.WriteConsole(ConsoleColor.Red, "Add correct group Room :");
+                goto GroupRoom;
+            }
+                
+            GroupTeacher:
             Helpers.WriteConsole(ConsoleColor.Blue, "Add group Teacher :");
-        Teacher:
             string groupTeacher = Console.ReadLine();
-
-
-            int teacherName;
-            bool isTeacherName = int.TryParse(groupTeacher, out teacherName);
-
-
-            if (!isTeacherName && !string.IsNullOrEmpty(groupTeacher))
+             if (!regex.IsMatch(groupTeacher))
             {
-                Group group = new Group()
-                {
-                    Name = groupName,
-                    Room = groupRoom,
-                    Teacher = groupTeacher
-
-
-                };
-                var result = groupService.Create(group);
-                Helpers.WriteConsole(ConsoleColor.Green, $" Group Id: {result.Id}, Group Name: {result.Name},Teacher Name: {result.Teacher}, Room:{result.Room}");
+                Helpers.WriteConsole(ConsoleColor.Red, "Add correct group Teacher :");
+                goto GroupTeacher;
             }
+                
+            
 
-            else
+            Group group = new Group()
             {
-                Helpers.WriteConsole(ConsoleColor.DarkRed, "Add correct Teacher Name:");
-                goto Teacher;
+                Name = groupName,
+                Room = groupRoom,
+                Teacher = groupTeacher
 
-            }
+
+            };
+            var result = groupService.Create(group);
+            Helpers.WriteConsole(ConsoleColor.Green, $" Group Id: {result.Id}, Group Name: {result.Name},Teacher Name: {result.Teacher}, Room:{result.Room}");
+
+
         }
 
         public void GetGroupById()
         {
+
             Helpers.WriteConsole(ConsoleColor.Blue, "Add group id :");
         GroupId: string groupId = Console.ReadLine();
 
@@ -79,7 +94,7 @@ namespace Course_App.Controllers
 
         public void GetAllGroupByTeacher()
         {
-            Helpers.WriteConsole(ConsoleColor.Blue, "Search group by teacher name :");
+            Helpers.WriteConsole(ConsoleColor.Blue, "All group by teacher name :");
         TeacherName: string nameTh = Console.ReadLine();
 
 
@@ -103,7 +118,7 @@ namespace Course_App.Controllers
 
         public void GetAllGroupByRoom()
         {
-            Helpers.WriteConsole(ConsoleColor.Blue, "Search group by Room name :");
+            Helpers.WriteConsole(ConsoleColor.Blue, "All group by Room name :");
         RoomName: string nameRoom = Console.ReadLine();
 
 
@@ -136,9 +151,9 @@ namespace Course_App.Controllers
 
         public void Delete()
         {
-
+        GroupId:
+            string groupId = Console.ReadLine();
             Helpers.WriteConsole(ConsoleColor.Blue, "Add group id :");
-        GroupId: string groupId = Console.ReadLine();
 
 
             int id;
@@ -147,8 +162,8 @@ namespace Course_App.Controllers
             if (isGroupId)
             {
                 groupService.Delete(id);
-                Console.WriteLine("Delete method works :");
-               
+                Helpers.WriteConsole(ConsoleColor.Yellow, "Delete method works :");
+
             }
             else
             {
@@ -159,62 +174,61 @@ namespace Course_App.Controllers
 
         public void Update()
         {
+        GroupId:
             Helpers.WriteConsole(ConsoleColor.Blue, "Add group Id :");
-            GroupId:
             string updateGroupId = Console.ReadLine();
             int groupId;
             bool isGroupId = int.TryParse(updateGroupId, out groupId);
+            Group group1 = new Group();
+            var result1 = groupService.Update(groupId, group1);
+            if (result1 is null)
+            {
+                Helpers.WriteConsole(ConsoleColor.Red, "Add Correct Group Id :");
+                goto GroupId;
+            }
 
             if (isGroupId)
             {
+                string strRegex = @"^[a-zA-Z]+$";
+                string strRegexFor = @"^[a-zA-Z0-9]+$";
+                Regex regex = new Regex(strRegex);
+                Regex regexFor = new Regex(strRegexFor);
+                GroupNewName:
                 Helpers.WriteConsole(ConsoleColor.Blue, "Add Group new Name:");
                 string groupNewName = Console.ReadLine();
+                if (!regexFor.IsMatch(groupNewName))
+                {
+                    Helpers.WriteConsole(ConsoleColor.Red, "Add correct group Room :");
+                    goto GroupNewName;
+                }
+                GroupNewRoom:
                 Helpers.WriteConsole(ConsoleColor.Blue, "Add Group new Room:");
                 string groupNewRoom = Console.ReadLine();
-                Helpers.WriteConsole(ConsoleColor.Blue, "Add Group new Teacher:");
-                TeacherName:
-                string groupNewTeacher = Console.ReadLine();
-
-                int teacherName;
-                bool isTeacherName = int.TryParse(groupNewTeacher, out teacherName);
-
-                if (!isTeacherName && !string.IsNullOrEmpty(groupNewTeacher) || groupNewTeacher == "")
+                if (!regexFor.IsMatch(groupNewRoom))
                 {
-                    bool isTeacher = string.IsNullOrEmpty(groupNewTeacher);
-
-                    int? tname = null;
-                    if (isTeacherName)
-                    {                                               
-                        tname = null;                             //if yada rejex stringdi deye
-                    }
-                    else
-                    {
-                        tname = teacherName;
-                    }
-
-                    Group group = new Group()
-                    {
-                        Name = groupNewName,
-                        Room = groupNewRoom,
-                        Teacher = groupNewTeacher
-                    };
-                    var resultGroup = groupService.Update(groupId, group);
-                    if(resultGroup == null)
-                    {
-                        Helpers.WriteConsole(ConsoleColor.DarkRed, "Group not found, please try again:");
-                        goto TeacherName;
-                    }
-                    else
-                    {
-                        Helpers.WriteConsole(ConsoleColor.Green, $" Group Id: {resultGroup.Id}, Group Name: {resultGroup.Name},Teacher Name: {resultGroup.Teacher}, Room:{resultGroup.Room}");
-                    }
-
+                    Helpers.WriteConsole(ConsoleColor.Red, "Add correct group Room :");
+                    goto GroupNewRoom;
                 }
-                else
+                TeacherName:
+                Helpers.WriteConsole(ConsoleColor.Blue, "Add Group new Teacher:");
+                string groupNewTeacher = Console.ReadLine();
+                
+                if (!regex.IsMatch(groupNewTeacher))
                 {
                     Helpers.WriteConsole(ConsoleColor.DarkRed, "Add correct Teacher Name:");
                     goto TeacherName;
                 }
+                
+
+                Group group = new Group()
+                {
+                    Name = groupNewName,
+                    Room = groupNewRoom,
+                    Teacher = groupNewTeacher
+                };
+                var resultGroup = groupService.Update(groupId, group);
+                Helpers.WriteConsole(ConsoleColor.Green, $" Group Id: {resultGroup.Id}, Group Name: {resultGroup.Name},Teacher Name: {resultGroup.Teacher}, Room:{resultGroup.Room}");
+
 
             }
             else
@@ -223,5 +237,29 @@ namespace Course_App.Controllers
                 goto GroupId;
             }
         }
+
+        public void SearchGroupName()
+        {
+            Helpers.WriteConsole(ConsoleColor.Blue, "Add group search text :");
+        SearchText: string search = Console.ReadLine();
+            List<Group> groups = groupService.SearchGroupName(search);
+            if (groups != null)
+            {
+                foreach (var item in groups)
+                {
+                    Helpers.WriteConsole(ConsoleColor.Green, $" Group Id: {item.Id}, Group Name: {item.Name},Teacher Name: {item.Teacher}, Room:{item.Room}");
+                }
+            }
+            else
+            {
+                Helpers.WriteConsole(ConsoleColor.Blue, "Group Not Fount :");
+                goto SearchText;
+            }
+
+        }
+
+
     }
+
+    
 }

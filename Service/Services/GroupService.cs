@@ -56,6 +56,11 @@ namespace Service.Services
             return group;
         }
 
+        public List<Group> SearchGroupName(string search)
+        {
+            return _groupRepository.GetAll(m => m.Name.StartsWith(search));
+        }
+
         public Group Update(int id, Group group)
         {
             Group dbGroup = GetById(id);
@@ -64,5 +69,7 @@ namespace Service.Services
             _groupRepository.Update(group);
             return group;
         }
+
+        
     }
 }
